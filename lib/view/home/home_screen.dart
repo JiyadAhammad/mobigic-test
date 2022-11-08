@@ -62,16 +62,16 @@ class HomeScreen extends StatelessWidget {
                   }
                 },
               ),
-              // kheight20,
-              // TextFormWidget(
-              //   hintText: 'please Enter the value',
-              //   controller: valueController,
-              //   validator: (String? value) {
-              //     if (value!.isEmpty) {
-              //       return 'Please Enter value';
-              //     }
-              //   },
-              // ),
+              kheight20,
+              TextFormWidget(
+                hintText: 'please Enter the value',
+                controller: valueController,
+                validator: (String? value) {
+                  if (value!.isEmpty) {
+                    return 'Please Enter value';
+                  }
+                },
+              ),
               kheight20,
               ElevatedButton.icon(
                 style: ElevatedButton.styleFrom(
@@ -80,11 +80,13 @@ class HomeScreen extends StatelessWidget {
                 onPressed: () {
                   log('${rowController.text} this is row');
                   log('${columnController.text} this is column');
+                  log('${valueController.text} this is value');
                   if (formKey.currentState!.validate()) {
                     Get.to(
                       () => ViewScreen(
                         row: rowController.text,
                         column: columnController.text,
+                        value: valueController.text,
                       ),
                     );
                   }
