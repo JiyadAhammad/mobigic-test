@@ -12,6 +12,8 @@ class HomeScreen extends StatelessWidget {
 
   final TextEditingController rowController = TextEditingController();
   final TextEditingController columnController = TextEditingController();
+
+  final TextEditingController valueController = TextEditingController();
   final GlobalKey<FormState> formKey = GlobalKey<FormState>();
 
   @override
@@ -40,12 +42,36 @@ class HomeScreen extends StatelessWidget {
               TextFormWidget(
                 hintText: 'Number Of Rows',
                 controller: rowController,
+                validator: (String? value) {
+                  if (value!.isEmpty) {
+                    return 'Please Enter NUmber';
+                  } else if (value == '0') {
+                    return ' please Enter Greater than Zero';
+                  }
+                },
               ),
               kheight20,
               TextFormWidget(
                 hintText: 'Number Of columns',
                 controller: columnController,
+                validator: (String? value) {
+                  if (value!.isEmpty) {
+                    return 'Please Enter NUmber';
+                  } else if (value == '0') {
+                    return ' please Enter Greater than Zero';
+                  }
+                },
               ),
+              // kheight20,
+              // TextFormWidget(
+              //   hintText: 'please Enter the value',
+              //   controller: valueController,
+              //   validator: (String? value) {
+              //     if (value!.isEmpty) {
+              //       return 'Please Enter value';
+              //     }
+              //   },
+              // ),
               kheight20,
               ElevatedButton.icon(
                 style: ElevatedButton.styleFrom(
@@ -97,26 +123,21 @@ class CustomAppBarWidget extends StatelessWidget with PreferredSizeWidget {
 }
 
 class TextFormWidget extends StatelessWidget {
-  const TextFormWidget({
-    super.key,
-    required this.hintText,
-    required this.controller,
-  });
+  const TextFormWidget(
+      {super.key,
+      required this.hintText,
+      required this.controller,
+      required this.validator});
 
   final String hintText;
   final TextEditingController controller;
+  final String? Function(String?)? validator;
 
   @override
   Widget build(BuildContext context) {
     return TextFormField(
       controller: controller,
-      validator: (String? value) {
-        if (value!.isEmpty) {
-          return 'Please Enter NUmber';
-        } else if (value == '0') {
-          return ' please Enter Greater than Zero';
-        }
-      },
+      validator: validator,
       decoration: InputDecoration(
         fillColor: kblack,
         border: OutlineInputBorder(
